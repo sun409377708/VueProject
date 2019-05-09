@@ -18,7 +18,6 @@ export default {
   }
 }
 
-import '../mui/css/mui.css'
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
