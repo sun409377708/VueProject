@@ -11,5 +11,7 @@ export default new Router({
       name: 'HelloWorld',
       component: HelloWorld
     }
-  ]
+  ],
+  // 覆盖默认路由高亮的类
+  linkActiveClass:'mui-active'
 })
