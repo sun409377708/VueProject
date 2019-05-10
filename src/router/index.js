@@ -31,6 +31,10 @@ export default new Router({
       name: 'SearchContainer',
       component: SearchContainer
     },
+    {
+      path: '/', redirect:'/home'
+    }
+
   ],
   // 覆盖默认路由高亮的类
   linkActiveClass:'mui-active'

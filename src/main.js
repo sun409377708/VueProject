@@ -8,6 +8,8 @@ import 'mint-ui/lib/style.css'
 Vue.use(MintUI)
 import './mui/css/icons-extra.css'
 import './mui/css/mui.css'
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
