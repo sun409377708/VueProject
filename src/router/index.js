@@ -4,7 +4,7 @@ import HomeContainer from '../components/tabbar/HomeContainer'
 import MemberContainer from '../components/tabbar/MemberContainer'
 import ShopContainer from '../components/tabbar/ShopContainer'
 import SearchContainer from '../components/tabbar/SearchContainer'
-
+import NewsList from '../components/view/Newslist'
 
 Vue.use(Router)
 
@@ -12,24 +12,19 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/home',
-      name: 'HomeContainer',
-      component: HomeContainer
+      path: '/home', name: 'HomeContainer', component: HomeContainer
     },
     {
-      path: '/member',
-      name: 'MemberContainer',
-      component: MemberContainer
+      path: '/member', name: 'MemberContainer', component: MemberContainer
     },
     {
-      path: '/shop',
-      name: 'ShopContainer',
-      component: ShopContainer
+      path: '/shop', name: 'ShopContainer', component: ShopContainer
     },
     {
-      path: '/search',
-      name: 'SearchContainer',
-      component: SearchContainer
+      path: '/search', name: 'SearchContainer', component: SearchContainer
+    },
+    {
+      path:'/home/newList', name:NewsList, component:NewsList
     },
     {
       path: '/', redirect:'/home'
