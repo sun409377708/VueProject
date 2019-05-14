@@ -1,20 +1,26 @@
 <template>
     <div class="newsInfo-content">
+      <!-- 主标题 -->
       <h3 class="title">{{newsInfo.hospName}}</h3>
+      <!-- 医院图片 -->
       <img v-bind:src="newsInfo.hospImage" alt="" class="hospImg">
+      <!-- 副标题 -->
       <p class="subTitle">
         <span>发表时间:{{'2012-12-01 12:01:10' | dateFormat}}</span>
         <span>电话:{{newsInfo.telNums}}</span>
       </p>
 
       <hr>
-
+      <!-- 内容介绍 -->
       <div class="content">{{newsInfo.hospDesc}}</div>
+      <!-- 评论区域 -->
+      <comment-box></comment-box>
     </div>
 </template>
 
 <script>
     import { Toast } from 'mint-ui';
+    import comment from '../subcomponent/commentLine'
 
     export default {
         name: "NewsInfo",
@@ -41,7 +47,11 @@
 
             });
           }
+      },
+      components:{
+          'comment-box':comment
       }
+
     }
 </script>
 
