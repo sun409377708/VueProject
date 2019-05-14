@@ -5,6 +5,7 @@ import MemberContainer from '../components/tabbar/MemberContainer'
 import ShopContainer from '../components/tabbar/ShopContainer'
 import SearchContainer from '../components/tabbar/SearchContainer'
 import NewsList from '../components/view/Newslist'
+import NewsInfo from '../components/view/NewsInfo'
 
 Vue.use(Router)
 
@@ -27,8 +28,12 @@ export default new Router({
       path:'/home/newList', name:NewsList, component:NewsList
     },
     {
+      path:'/home/newsInfo/:id', name:NewsInfo, component:NewsInfo
+    },
+    {
       path: '/', redirect:'/home'
-    }
+    },
+
 
   ],
   // 覆盖默认路由高亮的类

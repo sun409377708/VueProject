@@ -1,8 +1,10 @@
 <template>
     <div>
       <ul class="mui-table-view">
-        <li class="mui-table-view-cell mui-media" v-for="item in newsData" :key="item.questionId">
-          <a href="javascript:;" >
+        <li class="mui-table-view-cell mui-media" v-for="item in newsData" :key="item.hospId">
+          <!-- 此处to后面的内容因为是表达式, 所以需要进行绑定-->
+          <!-- 此处的/home/newsInfo/id 需要与路由配置一直, 且前面要有斜线-->
+          <router-link v-bind:to="'/home/newsInfo/'+item.hospId">
             <img class="mui-media-object mui-pull-left" :src='item.hospImage'>
             <div class="mui-media-body">
               <h1>{{item.hospName}}</h1>
@@ -11,7 +13,7 @@
                 <span>医院电话:{{item.hospTel}}</span>
               </p>
             </div>
-          </a>
+          </router-link>
         </li>
 
       </ul>
@@ -39,8 +41,7 @@
           if (result.body.code === 1) {
 
             this.newsData = result.body.results.hospitals;
-            console.log(this.newsData);
-            Toast('加载成功');
+            Toast('加载医院成功');
           }
         }, failure => {
           Toast('获取失败');
@@ -52,9 +53,6 @@
 </script>
 
 <style scoped>
-  .mui-table-view .mui-media, .mui-table-view .mui-media-body {
-    text-align: left;
-  }
 
   .mui-table-view li h1 {
     font-size: 14px;

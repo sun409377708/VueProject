@@ -55,8 +55,7 @@
           if (result.body.code === 1) {
 
             this.dataList = result.body.results.sowingMapList;
-            console.log(this.dataList);
-            Toast('加载成功');
+            Toast('加载首页成功');
           }
         }, failure => {
 
