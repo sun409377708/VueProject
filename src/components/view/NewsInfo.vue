@@ -14,7 +14,7 @@
       <!-- 内容介绍 -->
       <div class="content">{{newsInfo.hospDesc}}</div>
       <!-- 评论区域 -->
-      <comment-box></comment-box>
+      <comment-box :floorLevel = '123'></comment-box>
     </div>
 </template>
 
@@ -32,6 +32,7 @@
       },
       created(){
           this.getNewsDetailData();
+
       },
       methods:{
           getNewsDetailData(){
@@ -46,7 +47,7 @@
             }, failure => {
 
             });
-          }
+          },
       },
       components:{
           'comment-box':comment

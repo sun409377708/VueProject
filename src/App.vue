@@ -3,9 +3,9 @@
     <!--<img src="./assets/logo.png">-->
     <!--顶部-->
     <mt-header fixed title="Vue项目">
-      <router-link to="/" slot="left">
+      <a slot="left" @click.prevent="$router.back()">
         <mt-button icon="back">返回</mt-button>
-      </router-link>
+      </a>
       <mt-button icon="more" slot="right"></mt-button>
     </mt-header>
 
@@ -40,7 +40,10 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  mounted(){
+    console.log(this.$router);
+  }
 }
 </script>
 
