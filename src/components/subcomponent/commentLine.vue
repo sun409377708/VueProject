@@ -3,12 +3,13 @@
       <h4>发表评论</h4>
       <hr>
       <!-- 输入文本区域 -->
-      <textarea placeholder="请输入要BB的内容" maxlength="120"></textarea>
+      <textarea placeholder="请输入要BB的内容" maxlength="120" v-model="msg"></textarea>
+      <mt-button type="primary" size="large" @click="sendMsg">发表评论</mt-button>
       <!-- 评论内容 -->
       <div class="cmt-list" v-for="(item, index) in commentData" :key="item.thdDocId">
         <div class="cmt-item">
           <div class="cmt-title">
-            第{{index}}楼&nbsp;&nbsp;用户:{{item.doctorName}}&nbsp;&nbsp;医院:{{item.hospName}}
+            第{{index+1}}楼&nbsp;&nbsp;用户:{{item.doctorName}}&nbsp;&nbsp;医院:{{item.hospName}}
           </div>
           <div class="cmt-body">
             {{item.goodat === undefined ? '暂无数据' : item.goodat}}
@@ -17,7 +18,7 @@
 
       </div>
       <!-- 发表按钮 -->
-      <mt-button type="primary" size="large" plain @click="getMoreData">加载更多</mt-button>
+      <mt-button type="danger" size="large" plain @click="getMoreData">加载更多</mt-button>
     </div>
 </template>
 
@@ -30,7 +31,8 @@
         data(){
           return {
             pageNo:1,
-            commentData:[]
+            commentData:[],
+            msg:''
           }
         },
         created(){
@@ -51,9 +53,18 @@
             });
           },
 
+          // 加载更多
           getMoreData(){
             this.pageNo+=1;
             this.getCommentData()
+
+          },
+
+          // 发表评论
+          sendMsg(){
+              var cmt = {doctorName:'梅思佳',hospName:this.msg.trim(), goodat: '梅梅牌速效避孕药, 包你一吃即孕, 百试百灵'}
+              this.commentData.unshift(cmt);
+              this.msg = ''
 
           }
         }

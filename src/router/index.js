@@ -6,6 +6,7 @@ import ShopContainer from '../components/tabbar/ShopContainer'
 import SearchContainer from '../components/tabbar/SearchContainer'
 import NewsList from '../components/view/Newslist'
 import NewsInfo from '../components/view/NewsInfo'
+import PhotoList from '../components/view/PhotoList'
 
 Vue.use(Router)
 
@@ -25,10 +26,13 @@ export default new Router({
       path: '/search', name: 'SearchContainer', component: SearchContainer
     },
     {
-      path:'/home/newList', name:NewsList, component:NewsList
+      path:'/home/newList', name:'NewsList', component:NewsList
     },
     {
-      path:'/home/newsInfo/:id', name:NewsInfo, component:NewsInfo
+      path:'/home/newsInfo/:id', name:'NewsInfo', component:NewsInfo
+    },
+    {
+      path:'/home/photoList', name:'PhotoList', component:PhotoList
     },
     {
       path: '/', redirect:'/home'
