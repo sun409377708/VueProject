@@ -56,7 +56,12 @@ export default {
 </script>
 
 <style>
-#app {
+  /* 提升优先级避免被其他视图覆盖*/
+  .mint-header.is-fixed {
+     z-index: 99;
+  }
+
+  #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

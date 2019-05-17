@@ -16,21 +16,24 @@ import './mui/css/mui.css'
 
 // 导入resource网络请求库
 import VueResource from 'vue-resource'
-
 Vue.use(VueResource)
-
-// 设置host地址
-Vue.http.options.root = 'https://api.daoyitong.com/'
 
 
 // 导入时间moment时间插件
 import moment from 'moment'
+
+// 导入mint ui 懒加载图片
+import { Lazyload } from 'mint-ui';
+Vue.use(Lazyload);
 
 
 // 全局过滤器
 Vue.filter('dateFormat', function (dateStr, pattern='YYYY-MM-DD') {
     return moment(dateStr).format(pattern)
 })
+
+// 设置host地址
+Vue.http.options.root = 'https://api.daoyitong.com/'
 
 Vue.config.productionTip = false
 
