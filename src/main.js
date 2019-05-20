@@ -32,6 +32,10 @@ Vue.filter('dateFormat', function (dateStr, pattern='YYYY-MM-DD') {
     return moment(dateStr).format(pattern)
 })
 
+// 导入图片浏览器
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+
 // 设置host地址
 Vue.http.options.root = 'https://api.daoyitong.com/'
 

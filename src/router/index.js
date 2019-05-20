@@ -7,6 +7,8 @@ import SearchContainer from '../components/tabbar/SearchContainer'
 import NewsList from '../components/view/Newslist'
 import NewsInfo from '../components/view/NewsInfo'
 import PhotoList from '../components/view/PhotoList'
+import PhotoInfo from '../components/view/PhotoInfo'
+import GoodsList from '../components/view/GoodsList'
 
 Vue.use(Router)
 
@@ -33,6 +35,12 @@ export default new Router({
     },
     {
       path:'/home/photoList', name:'PhotoList', component:PhotoList
+    },
+    {
+      path:'/home/photoInfo/:id', name:'PhotoInfo', component:PhotoInfo
+    },
+    {
+      path:'/home/goodsList', name:'GoodsList', component:GoodsList
     },
     {
       path: '/', redirect:'/home'
