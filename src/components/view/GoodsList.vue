@@ -1,100 +1,48 @@
 <template>
     <div class="goods-list">
 
-      <div class="goods-item">
-        <img src="http://img14.360buyimg.com/n7/jfs/t27616/251/1425719819/224805/20c2401e/5bc831fdN61f8d9d2.jpg" alt="">
-        <div class="title">vivoZ36GB+64GB领券立减150元千元全面屏</div>
+      <div class="goods-item" v-for="item in rankInfo" :key="item.currentRank">
+        <img :src="item.imgPath" alt="">
+        <div class="title">{{item.wareName}}</div>
 
         <div class="info">
           <p class="price">
-            <span class="now">$1548</span>
-            <span class="old">$1948</span>
+            <span class="now">{{item.jdPrice}}</span>
+            <span class="old">{{item.mPrice}}</span>
           </p>
 
-          <div class="sell">
+          <div class="sell" >
             <span>热卖中</span>
-            <span>剩余60件</span>
+            <span>{{item.productValue.hotScore}}</span>
           </div>
         </div>
       </div>
-
-      <div class="goods-item">
-        <img src="http://img11.360buyimg.com/n7/jfs/t22330/332/515182850/188708/3dbe80f8/5b0fbaabN3229c7a3.jpg" alt="">
-        <div class="title">小米8SE 全面屏智能游戏</div>
-
-        <div class="info">
-          <p class="price">
-            <span class="now">$189</span>
-            <span class="old">$229</span>
-          </p>
-
-          <div class="sell">
-            <span>热卖中</span>
-            <span>剩余60件</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="goods-item">
-        <img src="http://img10.360buyimg.com/n7/jfs/t1/3398/4/3488/86713/5b997c05Ef8001f1a/d1cbeecd11a2ef3b.jpg" alt="">
-        <div class="title">Apple iPhone XR (A2108) 128GB 黑色</div>
-
-        <div class="info">
-          <p class="price">
-            <span class="now">$5899</span>
-            <span class="old">$6299</span>
-          </p>
-
-          <div class="sell">
-            <span>热卖中</span>
-            <span>剩余60件</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="goods-item">
-        <img src="http://img14.360buyimg.com/n7/jfs/t1/22718/1/12601/168068/5caedd41E05e879b0/865565d919219154.jpg" alt="">
-        <div class="title">荣耀10青春版 幻彩渐变 2400万AI自拍 全网通版4GB+64GB 渐变蓝</div>
-
-        <div class="info">
-          <p class="price">
-            <span class="now">$1299</span>
-            <span class="old">$4229</span>
-          </p>
-
-          <div class="sell">
-            <span>热卖中</span>
-            <span>剩余60件</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="goods-item">
-        <img src="http://img12.360buyimg.com/n7/jfs/t11467/256/2884845812/267100/493ed21c/5cdd1018N977740e5.jpg" alt="">
-        <div class="title">荣耀20i 3200万AI自拍 超广角三摄 全网通版6GB+64GB</div>
-
-        <div class="info">
-          <p class="price">
-            <span class="now">$1599</span>
-            <span class="old">$2599</span>
-          </p>
-
-          <div class="sell">
-            <span>热卖中</span>
-            <span>剩余60件</span>
-          </div>
-        </div>
-      </div>
-
-
 
     </div>
 </template>
 
 <script>
-    export default {
-        name: "GoodsList"
+
+  import dataJson from '../../../static/jingdong.json'
+
+  export default {
+    name: "GoodsList",
+    methods:{
+
+    },
+    data(){
+      return{
+        rankInfo:[],
+
+      }
+    },
+    mounted(){
+
+      this.rankInfo = dataJson.result.rankInfo
+      console.log(JSON.parse(JSON.stringify(this.rankInfo)));
+      console.log('加载成功');
     }
+  }
 </script>
 
 <style scoped lang="scss">
@@ -123,6 +71,19 @@
       .title{
         font-size: 14px;
         color: black;
+
+        //文本不换行，这样超出一行的部分被截取，显示...
+        /*overflow: hidden;*/
+        /*text-overflow: ellipsis;*/
+        /*white-space: nowrap;*/
+
+
+        // 控制固定行数
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient: vertical;
       }
 
 
