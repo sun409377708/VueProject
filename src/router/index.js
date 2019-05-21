@@ -9,39 +9,23 @@ import NewsInfo from '../components/view/NewsInfo'
 import PhotoList from '../components/view/PhotoList'
 import PhotoInfo from '../components/view/PhotoInfo'
 import GoodsList from '../components/view/GoodsList'
+import GoodsInfo from '../components/view/GoodsInfo'
 
 Vue.use(Router)
 
 // export default 将路由对象暴露出去
 export default new Router({
   routes: [
-    {
-      path: '/home', name: 'HomeContainer', component: HomeContainer
-    },
-    {
-      path: '/member', name: 'MemberContainer', component: MemberContainer
-    },
-    {
-      path: '/shop', name: 'ShopContainer', component: ShopContainer
-    },
-    {
-      path: '/search', name: 'SearchContainer', component: SearchContainer
-    },
-    {
-      path:'/home/newList', name:'NewsList', component:NewsList
-    },
-    {
-      path:'/home/newsInfo/:id', name:'NewsInfo', component:NewsInfo
-    },
-    {
-      path:'/home/photoList', name:'PhotoList', component:PhotoList
-    },
-    {
-      path:'/home/photoInfo/:id', name:'PhotoInfo', component:PhotoInfo
-    },
-    {
-      path:'/home/goodsList', name:'GoodsList', component:GoodsList
-    },
+    { path: '/home', name: 'HomeContainer', component: HomeContainer },
+    { path: '/member', name: 'MemberContainer', component: MemberContainer },
+    { path: '/shop', name: 'ShopContainer', component: ShopContainer },
+    { path: '/search', name: 'SearchContainer', component: SearchContainer },
+    { path:'/home/newList', name:'NewsList', component:NewsList },
+    { path:'/home/newsInfo/:id', name:'NewsInfo', component:NewsInfo },
+    { path:'/home/photoList', name:'PhotoList', component:PhotoList },
+    { path:'/home/photoInfo/:id', name:'PhotoInfo', component:PhotoInfo },
+    { path:'/home/goodsList', name:'GoodsList', component:GoodsList },
+    { path:'/home/goodsInfo/:id', name:'GoodsInfo', component:GoodsInfo },
     {
       path: '/', redirect:'/home'
     },

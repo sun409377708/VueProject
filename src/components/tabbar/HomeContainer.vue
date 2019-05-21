@@ -67,6 +67,7 @@
 </script>
 
 <style scoped>
+
   .mint-swipe {
     height: 200px;
   }
@@ -81,11 +82,13 @@
     background-color: blue;
   }
 
+  /* 修改轮播图样式 */
   img {
     width: 100%;
     height: 100%;
   }
 
+  /* 修改九宫格样式 */
   .mui-grid-view.mui-grid-9 {
     background-color: #fff;
     border: none;

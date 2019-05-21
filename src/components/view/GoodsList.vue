@@ -1,7 +1,7 @@
 <template>
     <div class="goods-list">
 
-      <div class="goods-item" v-for="item in rankInfo" :key="item.currentRank">
+      <div class="goods-item" v-for="item in rankInfo" :key="item.currentRank" @click="goDetail(item.currentRank)">
         <img :src="item.imgPath" alt="">
         <div class="title">{{item.wareName}}</div>
 
@@ -13,7 +13,7 @@
 
           <div class="sell" >
             <span>热卖中</span>
-            <span>{{item.productValue.hotScore}}</span>
+            <span>{{item.productValue.hotScore}}件</span>
           </div>
         </div>
       </div>
@@ -23,12 +23,15 @@
 
 <script>
 
-  import dataJson from '../../../static/jingdong.json'
+  import dataJson from '../../../static/phoneList.json'
 
   export default {
     name: "GoodsList",
     methods:{
-
+      // 跳转下一级界面
+      goDetail(id){
+        this.$router.push('/home/goodsInfo/'+id)
+      }
     },
     data(){
       return{
@@ -39,7 +42,6 @@
     mounted(){
 
       this.rankInfo = dataJson.result.rankInfo
-      console.log(JSON.parse(JSON.stringify(this.rankInfo)));
       console.log('加载成功');
     }
   }
