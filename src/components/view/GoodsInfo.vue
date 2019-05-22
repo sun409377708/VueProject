@@ -5,30 +5,45 @@
     <div class="mui-card">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          <swiper :loopList="imgList" :swipeHeight="swipeH" :autoTime='autoSwipe' ></swiper>
+          <swiper :loopList="imgList" :swipeHeight="swipeH" ></swiper>
         </div>
       </div>
     </div>
 
     <!-- 中间区域 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">{{goodsInfo.wareInfo.pName}}</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+          <p class="price">
+            市场价:<del>${{goodsInfo.priceInfo.originPrice}}</del>&nbsp;&nbsp;销售价:<span class="current-price">${{goodsInfo.priceInfo.jprice}}</span>
+          </p>
+          <p>购买数量:
+            <numBox ref="myNumBox"></numBox>
+          </p>
+          <p>
+            <mt-button type="primary" size="small" @click="getNum">立即购买</mt-button>
+            <mt-button type="danger" size="small">加入购物车</mt-button>
+          </p>
         </div>
       </div>
     </div>
 
     <!-- 底部区域 -->
     <div class="mui-card">
-      <div class="mui-card-header">页眉</div>
+      <div class="mui-card-header">商品参数</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）
+          <p>商品排行:{{goodsInfo.rankName}}</p>
+          <p>重量: {{goodsInfo.weightInfo.content}}</p>
+          <p>上架时间:{{'2019-12-01 12:01:10' | dateFormat('YYYY年MM月DD日')}}</p>
         </div>
       </div>
-      <div class="mui-card-footer">页脚</div>
+      <div class="mui-card-footer">
+        <mt-button type="primary" size="large" >图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain>商品介绍</mt-button>
+
+      </div>
     </div>
 
   </div>
@@ -37,6 +52,7 @@
 <script>
   import swiper from '../subcomponent/swiper'
   import phoneData from '../../../static/phoneDetail'
+  import numBox from '../subcomponent/goodsNumBox'
 
   export default {
     name: "GoodsInfo",
@@ -46,13 +62,14 @@
         goodsInfo:{},
         imgList:[],
         swipeH:'300px',
-        autoSwipe:2000
+        goodsNum:0
       }
     },
     components:{
-      swiper:swiper
+      swiper:swiper,
+      numBox:numBox
     },
-    mounted(){
+    created(){
       this.goodsId = this.$route.params.id
 
       this.goodsInfo = phoneData.data
@@ -65,6 +82,12 @@
       this.imgList = list
 
       console.log(this.goodsInfo);
+    },
+    methods:{
+      getNum(){
+        console.log('加载');
+        console.log(this.$refs.myNumBox.totalNum());
+      }
     }
   }
 </script>
@@ -73,5 +96,16 @@
   .goodsInfo-container{
     background-color: #eee;
     overflow: hidden;
+  }
+
+  .current-price {
+    color: red;
+  }
+
+  .mui-card-footer{
+    display: block;
+    button{
+      margin: 10px 0;
+    }
   }
 </style>

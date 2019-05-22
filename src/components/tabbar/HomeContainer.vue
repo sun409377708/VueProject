@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 轮播图-->
-    <swiper :loopList = dataList ></swiper>
+    <swiper :loopList = dataList :is-full-width="full"></swiper>
 
     <!-- 九宫格 -->
     <square></square>
@@ -18,7 +18,8 @@
     name: "HomeContainer",
     data(){
       return {
-        dataList:[]
+        dataList:[],
+        full:true
       }
     },
     components:{
