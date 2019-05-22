@@ -5,7 +5,7 @@
     <div class="mui-card">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
-          这是一个最简单的卡片视图控件；卡片视图常用来显示完整独立的一段信息，比如一篇文章的预览图、作者信息、点赞数量等
+          <swiper :loopList="imgList" :swipeHeight="swipeH" :autoTime='autoSwipe' ></swiper>
         </div>
       </div>
     </div>
@@ -35,16 +35,36 @@
 </template>
 
 <script>
+  import swiper from '../subcomponent/swiper'
+  import phoneData from '../../../static/phoneDetail'
+
   export default {
     name: "GoodsInfo",
     data(){
       return{
-        goodsId:''
+        goodsId:'',
+        goodsInfo:{},
+        imgList:[],
+        swipeH:'300px',
+        autoSwipe:2000
       }
+    },
+    components:{
+      swiper:swiper
     },
     mounted(){
       this.goodsId = this.$route.params.id
-      console.log(this.goodsId);
+
+      this.goodsInfo = phoneData.data
+      var list = phoneData.data.wareImage
+
+      list.forEach(item=>{
+        item.imgUrl = item.big
+      })
+
+      this.imgList = list
+
+      console.log(this.goodsInfo);
     }
   }
 </script>
