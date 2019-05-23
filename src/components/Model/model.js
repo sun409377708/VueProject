@@ -1,39 +1,71 @@
 class BaseModel {
 
-  code=''
-  message=''
-  results=''
+  code = 0
+  msg = ""
 
-  constructor(json) {
-    // json.forEach((value,key) => {
-    //   console.log('key:' +key+'\nvalue:'+value)
-    // })
 
-    for (let key in json) {
-      if (this[key] != undefined) {
-        if (BaseModel.classForKey()[key]) {
-          this[key] = BaseModel.classForKey()[key](json[key])
+  static init(objc) {
+    let model = new this()
+    let obj = JSON.parse(JSON.stringify(objc))
+    for (let key in model) {
+      if (obj[key]) {
+        if (model.arrayForKey()[key] && Array.isArray(obj[key])) {
+          model[key] = obj[key].map((value) => {
+            return model.arrayForKey()[key].init(value)
+          })
+        } else if (model.classForKey()[key]) {
+          model[key] = model.classForKey()[key].init(obj[key])
+        } else {
+          model[key] = obj[key]
         }
-        this[key] = json[key]
       }
+
     }
+    return model
   }
 
-  static classForKey(){
+  arrayForKey() {
+    return {}
+  }
+
+  classForKey() {
+    return {}
+  }
+}
+
+class Product extends BaseModel {
+  id = 0
+  res = undefined
+  list = undefined
+
+  classForKey() {
     return {
-      result: NetworkModel
+      res: Product
+    }
+  }
+
+  arrayForKey() {
+    return {
+      list:Product
     }
   }
 }
 
-class NetworkModel extends BaseModel {
-  constructor(imgUrl){
-    super(code, message, results)
-    this.imgUrl = imgUrl
-  }
-}
+let pro = Product.init( {
+  id: 123,
+  res: {
+    id: 456
+  },
+  list:[
+    {
+      id: 1
+    },{
+      id: 2
+    },{
+      id: 3
+    },
+  ]
+})
+console.log(pro)
 
-export default {
-  BaseModel:BaseModel,
-  NetworkModel:NetworkModel
-}
+export default BaseModel

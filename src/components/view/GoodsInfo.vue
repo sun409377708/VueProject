@@ -19,11 +19,11 @@
             市场价:<del>${{goodsInfo.priceInfo.originPrice}}</del>&nbsp;&nbsp;销售价:<span class="current-price">${{goodsInfo.priceInfo.jprice}}</span>
           </p>
           <p>购买数量:
-            <numBox ref="myNumBox"></numBox>
+            <numBox @getCount="getSelectCount" ref="myNumBox" :max="this.goodsMax"></numBox>
           </p>
           <p>
             <mt-button type="primary" size="small" @click="getNum">立即购买</mt-button>
-            <mt-button type="danger" size="small">加入购物车</mt-button>
+            <mt-button type="danger" size="small" >加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="mui-card-footer">
-        <mt-button type="primary" size="large" @click="getDesc">图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain @click="getComment">商品介绍</mt-button>
+        <mt-button type="primary" size="large" @click="getDesc">图文详情</mt-button>
+        <mt-button type="danger" size="large" plain @click="getComment">商品评论</mt-button>
 
       </div>
     </div>
@@ -62,7 +62,8 @@
         goodsInfo:{},
         imgList:[],
         swipeH:'300px',
-        goodsNum:0
+        selectCount:1,
+        goodsMax:undefined
       }
     },
     components:{
@@ -87,10 +88,12 @@
 
       console.log(this.goodsInfo);
 
+      this.getDescData()
+
     },
     methods:{
       getNum(){
-        console.log('加载');
+        console.log('第一种');
         console.log(this.$refs.myNumBox.totalNum());
       },
 
@@ -102,26 +105,50 @@
       getComment(){
         this.$router.push({name:'GoodsComment', params:'2'})
 
-      }
+      },
+
+      getSelectCount(count){
+        console.log(count);
+        this.selectCount = count
+        console.log('父组件拿到的值' + this.selectCount);
+
+      },
+
+      getDescData(){
+
+        this.$http.get('cloud/goods/pc/web/getGoodsById?goodsId=1055361442676477952').then(result => {
+
+          if (result.body.code === 1) {
+
+            this.goodsMax = result.body.results.goodsDTO.goodsShowSales
+
+          }
+
+
+        });
+      },
     }
   }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss">
   .goodsInfo-container{
     background-color: #eee;
     overflow: hidden;
-  }
 
-  .current-price {
-    color: red;
-    font-weight: 600;
-  }
-
-  .mui-card-footer{
-    display: block;
-    button{
-      margin: 10px 0;
+    .current-price {
+      color: red;
+      font-weight: 600;
     }
+
+    .mui-card-footer{
+      display: block;
+      button{
+        margin: 10px 0;
+      }
+    }
+
   }
+
+
 </style>
