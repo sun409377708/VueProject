@@ -39,10 +39,9 @@
 
       }
     },
-    mounted(){
+    created(){
       this.rankInfo = dataJson.result.rankInfo
       console.log('加载成功');
-
     }
   }
 </script>

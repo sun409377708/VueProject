@@ -40,8 +40,8 @@
         </div>
       </div>
       <div class="mui-card-footer">
-        <mt-button type="primary" size="large" >图文介绍</mt-button>
-        <mt-button type="danger" size="large" plain>商品介绍</mt-button>
+        <mt-button type="primary" size="large" @click="getDesc">图文介绍</mt-button>
+        <mt-button type="danger" size="large" plain @click="getComment">商品介绍</mt-button>
 
       </div>
     </div>
@@ -69,7 +69,11 @@
       swiper:swiper,
       numBox:numBox
     },
+    mounted(){
+
+    },
     created(){
+
       this.goodsId = this.$route.params.id
 
       this.goodsInfo = phoneData.data
@@ -82,11 +86,22 @@
       this.imgList = list
 
       console.log(this.goodsInfo);
+
     },
     methods:{
       getNum(){
         console.log('加载');
         console.log(this.$refs.myNumBox.totalNum());
+      },
+
+      getDesc(){
+        this.$router.push({name:'GoodsDesc', params:'1'})
+        console.log('tiaozhua');
+      },
+
+      getComment(){
+        this.$router.push({name:'GoodsComment', params:'2'})
+
       }
     }
   }
@@ -100,6 +115,7 @@
 
   .current-price {
     color: red;
+    font-weight: 600;
   }
 
   .mui-card-footer{
