@@ -38,37 +38,70 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
+  import Vuex from 'vuex'
+  Vue.use(Vuex)
 
-export default {
-  name: 'App',
-  data(){
-    return{
+  var store = new Vuex.Store({
+    state:{
+      // 购物车存储的对象 {id: 商品Id, count:数量, price:价格, selected:选中}
+      cars:[]
+    },
+    mutations:{
+
+      addShopCars(state, goodsInfo){
+        // 如果商品Id相同则只增加数量count, 否则直接添加
+        var flag = false
+        state.cars.some(item=>{
+          if (item.id === goodsInfo.id){
+            item.count += parseInt(goodsInfo.count);
+            flag = true;
+          }
+        });
+
+        // 如果商品Id不同则直接添加
+        if (flag === false){
+          state.cars.push(goodsInfo);
+        }
+
+        console.log(state.cars);
+      }
+    },
+    getters:{
 
     }
-  },
+  })
 
-  methods:{
+  export default {
+    name: 'App',
+    data(){
+      return{
 
+      }
+    },
+    store:store,
+    methods:{
+
+    }
   }
-}
 </script>
 
 <style>
   /* 提升优先级避免被其他视图覆盖*/
   .mint-header.is-fixed {
-     z-index: 99;
+    z-index: 99;
   }
 
   #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /*text-align: center;*/
-  color: #2c3e50;
-  padding-top: 40px;
-  padding-bottom: 50px;
-  overflow-x: hidden;
-}
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /*text-align: center;*/
+    color: #2c3e50;
+    padding-top: 40px;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+  }
 
   .v-enter{
     opacity: 0;
@@ -87,35 +120,35 @@ export default {
   }
 
   /* 解决mui-tab-item 因为与js中冲突导致tabbar无法点击的问题, 自定义一个类并将相关的css拷贝*/
-.mui-bar-tab .mui-tab-item-maoge.mui-active {
-  color: #007aff;
-}
+  .mui-bar-tab .mui-tab-item-maoge.mui-active {
+    color: #007aff;
+  }
 
-.mui-bar-tab .mui-tab-item-maoge {
-  display: table-cell;
-  overflow: hidden;
-  width: 1%;
-  height: 50px;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  color: #929292;
-}
+  .mui-bar-tab .mui-tab-item-maoge {
+    display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #929292;
+  }
 
-.mui-bar-tab .mui-tab-item-maoge .mui-icon {
-  top: 3px;
-  width: 24px;
-  height: 24px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
+  .mui-bar-tab .mui-tab-item-maoge .mui-icon {
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
 
-.mui-bar-tab .mui-tab-item-maoge .mui-icon ~ .mui-tab-label {
-  font-size: 11px;
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+  .mui-bar-tab .mui-tab-item-maoge .mui-icon ~ .mui-tab-label {
+    font-size: 11px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 </style>

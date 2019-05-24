@@ -23,7 +23,7 @@
           </p>
           <p>
             <mt-button type="primary" size="small" @click="getNum">立即购买</mt-button>
-            <mt-button type="danger" size="small" >加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addCar">加入购物车</mt-button>
           </p>
         </div>
       </div>
@@ -114,6 +114,15 @@
 
       },
 
+      addCar(){
+        // {id: 商品Id, count:数量, price:价格, selected:选中}
+        this.$store.commit('addShopCars', {
+          id:this.goodsId,
+          count:this.selectCount,
+          price:this.goodsInfo.priceInfo.jprice,
+          selected : false});
+      },
+
       getDescData(){
 
         this.$http.get('cloud/goods/pc/web/getGoodsById?goodsId=1055361442676477952').then(result => {
@@ -123,7 +132,6 @@
             this.goodsMax = result.body.results.goodsDTO.goodsShowSales
 
           }
-
 
         });
       },
