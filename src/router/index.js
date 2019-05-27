@@ -17,6 +17,8 @@ Vue.use(Router)
 
 // export default 将路由对象暴露出去
 export default new Router({
+
+  mode: 'history',
   routes: [
     { path: '/home', name: 'HomeContainer', component: HomeContainer },
     { path: '/member', name: 'MemberContainer', component: MemberContainer },
@@ -37,6 +39,10 @@ export default new Router({
 
 
   ],
+  // 处理滚动顶部问题
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
   // 覆盖默认路由高亮的类
   linkActiveClass:'mui-active'
 })

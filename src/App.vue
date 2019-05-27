@@ -3,7 +3,7 @@
     <!--<img src="./assets/logo.png">-->
     <!--顶部-->
     <mt-header fixed title="Vue项目">
-      <a slot="left" @click.prevent="$router.back()">
+      <a slot="left" @click.prevent="$router.back()" v-show="backFlag">
         <mt-button icon="back">返回</mt-button>
       </a>
       <mt-button icon="more" slot="right"></mt-button>
@@ -167,12 +167,25 @@
     name: 'App',
     data(){
       return{
-
+        backFlag:false
       }
     },
     store:store,
     methods:{
 
+    },
+    created(){
+      this.backFlag = this.$route.path === '/home' ? false : true
+    },
+    // 首页返回按钮隐藏
+    watch:{
+      '$route.path':function (newVal) {
+          if (newVal === '/home') {
+            this.backFlag = false;
+          }else{
+            this.backFlag = true;
+          }
+      }
     }
   }
 </script>
