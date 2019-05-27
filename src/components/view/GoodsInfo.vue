@@ -12,11 +12,11 @@
 
     <!-- 中间区域 -->
     <div class="mui-card">
-      <div class="mui-card-header">{{goodsInfo.wareInfo.pName}}</div>
+      <div class="mui-card-header">{{item.wareName}}</div>
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
           <p class="price">
-            市场价:<del>${{goodsInfo.priceInfo.originPrice}}</del>&nbsp;&nbsp;销售价:<span class="current-price">${{goodsInfo.priceInfo.jprice}}</span>
+            市场价:<del>${{item.mPrice}}</del>&nbsp;&nbsp;销售价:<span class="current-price">${{item.jdPrice}}</span>
           </p>
           <p>购买数量:
             <numBox @getCount="getSelectCount" ref="myNumBox" :max="this.goodsMax"></numBox>
@@ -63,7 +63,8 @@
         imgList:[],
         swipeH:'300px',
         selectCount:1,
-        goodsMax:undefined
+        goodsMax:undefined,
+        item:null
       }
     },
     components:{
@@ -75,7 +76,6 @@
     },
     created(){
 
-      this.goodsId = this.$route.params.id
 
       this.goodsInfo = phoneData.data
       var list = phoneData.data.wareImage
@@ -86,15 +86,15 @@
 
       this.imgList = list
 
-      console.log(this.goodsInfo);
-
       this.getDescData()
 
+      this.goodsId = this.$route.params.id
+      this.item = this.$route.params.item;
     },
     methods:{
       getNum(){
-        console.log('第一种');
-        console.log(this.$refs.myNumBox.totalNum());
+        // console.log('第一种');
+        // console.log(this.$refs.myNumBox.totalNum());
       },
 
       getDesc(){
@@ -110,7 +110,6 @@
       getSelectCount(count){
         console.log(count);
         this.selectCount = count
-        console.log('父组件拿到的值' + this.selectCount);
 
       },
 
@@ -119,20 +118,18 @@
         this.$store.commit('addShopCars', {
           id:this.goodsId,
           count:this.selectCount,
-          price:this.goodsInfo.priceInfo.jprice,
+          price:this.item.jdPrice,
+          img:this.item.imgPath,
+          name:this.item.wareName,
           selected : false});
       },
 
       getDescData(){
 
         this.$http.get('cloud/goods/pc/web/getGoodsById?goodsId=1055361442676477952').then(result => {
-
           if (result.body.code === 1) {
-
             this.goodsMax = result.body.results.goodsDTO.goodsShowSales
-
           }
-
         });
       },
     }

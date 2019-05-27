@@ -26,7 +26,7 @@
         <span class="mui-tab-label">会员</span>
       </router-link>
       <router-link class="mui-tab-item-maoge" to="/shop">
-        <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">0</span></span>
+        <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">{{$store.getters.totalCarsCount}}</span></span>
         <span class="mui-tab-label">购物车</span>
       </router-link>
       <router-link class="mui-tab-item-maoge" to="/search">
@@ -42,10 +42,13 @@
   import Vuex from 'vuex'
   Vue.use(Vuex)
 
+  // 每当进入网站会调用APP.vue模块, 此时将
+  var cars = JSON.parse(localStorage.getItem('cars') || '[]');
+
   var store = new Vuex.Store({
     state:{
-      // 购物车存储的对象 {id: 商品Id, count:数量, price:价格, selected:选中}
-      cars:[]
+      // 购物车存储的对象 {id: 商品Id, count:数量, price:价格, img:商品图片, name:商品名, selected:选中}
+      cars:cars
     },
     mutations:{
 
@@ -56,19 +59,38 @@
           if (item.id === goodsInfo.id){
             item.count += parseInt(goodsInfo.count);
             flag = true;
+            return true
+
           }
         });
 
         // 如果商品Id不同则直接添加
-        if (flag === false){
+        if (!flag){
           state.cars.push(goodsInfo);
         }
 
-        console.log(state.cars);
+        // 当更新cars 以后, 将其存储在本地localStorage中
+        localStorage.setItem('cars', JSON.stringify(state.cars));
       }
     },
     getters:{
+        // 获取购物车商品总数
+        totalCarsCount:function (state) {
+          var count = 0;
+          state.cars.forEach(item=>{
+            count += item.count;
+          });
+          return count;
+        },
 
+        getGoodsCount(state){
+          var obj = {}
+          state.cars.forEach(item=>{
+              obj[item.id] = item.count;
+          })
+
+          return obj;
+        }
     }
   })
 

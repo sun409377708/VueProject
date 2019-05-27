@@ -27,20 +27,17 @@
       // 初始化数字选择框组件
       mui('.mui-numbox').numbox()
 
-      console.log(this.max);
-
     },
     methods:{
 
       // 第一种传值方式, 让父组件直接调用子组件方法
-      totalNum(){
-        return mui('.mui-numbox').numbox().getValue()
-      },
+      // totalNum(){
+      //   return mui('.mui-numbox').numbox().getValue()
+      // },
 
       // 第二种方法, 监听文本框文本变化, 子组件emit调用父组件方法并传值
       countChanged(){
-        console.log('第二种');
-        this.$emit('getCount', this.$refs.numBox.value)
+        this.$emit('getCount', parseInt(this.$refs.numBox.value))
       }
 
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="goods-list">
 
-      <div class="goods-item" v-for="item in rankInfo" :key="item.currentRank" @click="goDetail(item.currentRank)">
+      <div class="goods-item" v-for="item in rankInfo" :key="item.currentRank" @click="goDetail(item)">
         <img :src="item.imgPath" alt="">
         <div class="title">{{item.wareName}}</div>
 
@@ -29,8 +29,9 @@
     name: "GoodsList",
     methods:{
       // 跳转下一级界面
-      goDetail(id){
-        this.$router.push('/home/goodsInfo/'+id)
+      goDetail(item){
+        // this.$router.push('/home/goodsInfo/'+id)
+        this.$router.push({ name: 'GoodsInfo', params: {item: item, id:item.currentRank}})
       }
     },
     data(){
