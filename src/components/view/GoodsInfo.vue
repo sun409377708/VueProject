@@ -120,7 +120,7 @@
           price:this.item.jdPrice,
           img:this.item.imgPath,
           name:this.item.wareName,
-          selected : false});
+          selected : true});
       },
 
       getDescData(){

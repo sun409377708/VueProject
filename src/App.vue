@@ -93,7 +93,19 @@
       removeShopCars(state, id){
         state.cars.some((item, i)=>{
           if (item.id === id) {
-            state.cars.splice(i, 1)
+            state.cars.splice(i, 1);
+            return true
+          }
+        })
+
+        localStorage.setItem('cars', JSON.stringify(state.cars));
+      },
+
+      // 更新商品选中
+      updateGoodsSelected(state, obj){
+        state.cars.some(item=>{
+          if (item.id === obj.id) {
+            item.selected = obj.selected;
             return true
           }
         })
@@ -111,13 +123,42 @@
           return count;
         },
 
-        getGoodsCount(state){
-          var obj = {}
+        // 获取id对应商品数量的数据{id:count}
+        getCountById(state){
+          var obj = {};
           state.cars.forEach(item=>{
               obj[item.id] = item.count;
-          })
+          });
 
           return obj;
+        },
+
+        // 获取所有selectd对应的商品{id:selected}
+        getCountBySelcted(state){
+          var obj = {};
+          state.cars.forEach(item=>{
+            obj[item.id] = item.selected;
+          });
+
+          return obj;
+        },
+
+        // 获取所有选中的商品
+        getGoodsAmount(state){
+          var obj = {
+            count:0,  // 勾选的数量
+            amount:0  // 勾选的总价
+          };
+
+          state.cars.forEach(item=>{
+            if (item.selected){
+              obj.count += item.count;
+              obj.amount += item.count * item.price;
+            }
+          });
+
+          return obj;
+
         }
     }
   })
