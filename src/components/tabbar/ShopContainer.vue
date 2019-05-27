@@ -3,7 +3,7 @@
 
     <div class="goods-list">
 
-      <div class="mui-card" v-for="item in shopList" :key="item.id">
+      <div class="mui-card" v-for="(item,i) in shopList" :key="item.id">
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
 
@@ -13,8 +13,8 @@
               <h1>{{item.name}}</h1>
               <p>
                 <span class="price">${{item.price}}</span>
-                <shopNumBox :selectNum = '$store.getters.getGoodsCount[item.id]'></shopNumBox>
-                <a href="#">删除</a>
+                <shopNumBox :selectNum = '$store.getters.getGoodsCount[item.id]' :goodId="item.id"></shopNumBox>
+                <a href="#" @click.prevent="removeGoods(item.id,i)">删除</a>
               </p>
             </div>
           </div>
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-  var cars = JSON.parse(localStorage.getItem('cars') || '[]');
 
   import shopNumBox from '../subcomponent/ShopNumBox'
 
@@ -47,9 +46,21 @@
     },
     data(){
       return{
-        shopList:cars
+        shopList:[]
       }
     },
+    created(){
+      this.shopList =  JSON.parse(localStorage.getItem('cars') || '[]');
+
+    },
+    methods:{
+      // 删除商品
+      removeGoods(id, index){
+        this.shopList.splice(index, 1);
+
+        this.$store.commit('removeShopCars', id);
+      }
+    }
 
   }
 </script>

@@ -71,6 +71,34 @@
 
         // 当更新cars 以后, 将其存储在本地localStorage中
         localStorage.setItem('cars', JSON.stringify(state.cars));
+      },
+
+      // 更新商品数据
+      updateShopCars(state, goodsInfo){
+
+        state.cars.some(item=>{
+          if (item.id === goodsInfo.id){
+            item.count = parseInt(goodsInfo.count);
+            return true
+
+          }
+        });
+
+        // 修改完后在保存
+        localStorage.setItem('cars', JSON.stringify(state.cars));
+
+      },
+
+      // 根据ID删除对应商品
+      removeShopCars(state, id){
+        state.cars.some((item, i)=>{
+          if (item.id === id) {
+            state.cars.splice(i, 1)
+            return true
+          }
+        })
+
+        localStorage.setItem('cars', JSON.stringify(state.cars));
       }
     },
     getters:{

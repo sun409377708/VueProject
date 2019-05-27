@@ -99,7 +99,6 @@
 
       getDesc(){
         this.$router.push({name:'GoodsDesc', params:'1'})
-        console.log('tiaozhua');
       },
 
       getComment(){
