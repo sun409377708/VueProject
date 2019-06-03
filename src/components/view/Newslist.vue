@@ -36,16 +36,30 @@
     },
     methods:{
       getNewsData(){
-        this.$http.get('api/v1/base/hospital/union/list/310000?hospGradeId=&isDistance=&latitude=37.793199&longitude=122.417871&mechanismType=&pageNo=1&pageSize=10&recommend=&standardDepartmentId=').then(result => {
+        // this.$http.get('api/v1/base/hospital/union/list/310000?hospGradeId=&isDistance=&latitude=37.793199&longitude=122.417871&mechanismType=&pageNo=1&pageSize=10&recommend=&standardDepartmentId=').then(result => {
+        //
+        //   if (result.body.code === 1) {
+        //
+        //     this.newsData = result.body.results.hospitals;
+        //     console.log(this.newsData);
+        //     Toast('加载医院成功');
+        //   }
+        // }, failure => {
+        //   Toast('获取失败');
+        // });
 
-          if (result.body.code === 1) {
+        var url = 'https://api.daoyitong.com/api/v1/base/hospital/union/list/310000?hospGradeId=&isDistance=&latitude=37.793199&longitude=122.417871&mechanismType=&pageNo=1&pageSize=10&recommend=&standardDepartmentId='
+        this.$axios(url).then(response =>{
+          console.log(response);
+          if (response.data.code === 1) {
+            this.newsData = response.data.results.hospitals;
+        console.log(this.newsData);
 
-            this.newsData = result.body.results.hospitals;
             Toast('加载医院成功');
           }
-        }, failure => {
-          Toast('获取失败');
-        });
+        }).catch(error => {
+
+        })
 
 
       }

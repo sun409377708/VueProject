@@ -18,6 +18,10 @@ import './mui/css/mui.css'
 import VueResource from 'vue-resource'
 Vue.use(VueResource)
 
+// 导入axios网络请求库
+import axios from 'axios'
+// 将axios绑定在vue原型上 ,this.$axios使用
+Vue.prototype.$axios = axios
 
 // 导入时间moment时间插件
 import moment from 'moment'
